@@ -1,18 +1,17 @@
-import React, {Fragment, Component} from 'react';
+import React, { Component } from 'react';
+import Navbar from './components/Navbar';
+import UserItem from './components/users/UserItem';
 import './App.css';
 
 class App extends Component {
-  render(){
-    const name = 'john 117';
-    const loading = false;
-    const showName = true; 
-    
+  render() {
     return (
-      <div className="App">
-          {loading ? <h3>Loading....</h3> : <h1>Hello {showName && name}</h1>} 
-      </div>
+        <div className='App'>
+            <Navbar/>
+            <UserItem/>
+        </div>
     );
   }
 }
 
-export default App;
+export default App
