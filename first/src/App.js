@@ -10,6 +10,7 @@ class App extends Component {
 state ={
   users: [],
   loading: false,
+  showClear: false,
 }
 
 //testing if getting users from api works
@@ -45,7 +46,7 @@ clearSearch = () => {this.setState({users: [], loading: false})
         <div className='App'>
             <Navbar/>
             <div className='container'>
-              <Search searchUsers={this.searchUsers} clearSearch={this.clearSearch}/>
+              <Search searchUsers={this.searchUsers} clearSearch={this.clearSearch} showClear={this.state.users.length > 0 ? true : false}/>
              <Users loading={this.state.loading} users={this.state.users} />
             </div>
         </div>
