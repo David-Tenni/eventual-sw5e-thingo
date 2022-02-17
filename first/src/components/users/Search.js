@@ -6,7 +6,8 @@ export class Search extends Component {
   };
 
   static propTypes = {
-    searchUsers: PropTypes.func.isRequired
+    searchUsers: PropTypes.func.isRequired,
+    clearSearch: PropTypes.bool.isRequired,
 
   };
   
@@ -36,6 +37,7 @@ export class Search extends Component {
             value='search' 
             className='btn btn-dark btn-block'/> 
           </form>
+          <button className='btn btn-light btn-block' onClick={this.props.clearSearch}>Clear</button>
       </div>
     )
   }

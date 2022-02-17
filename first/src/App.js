@@ -37,13 +37,15 @@ this.setState({loading: true});
 
   this.setState({users: res.data.items, loading: false});
 };
-
+//remove all the users by removing state
+clearSearch = () => {this.setState({users: [], loading: false})
+};
   render() {
     return (
         <div className='App'>
             <Navbar/>
             <div className='container'>
-              <Search searchUsers={this.searchUsers}/>
+              <Search searchUsers={this.searchUsers} clearSearch={this.clearSearch}/>
              <Users loading={this.state.loading} users={this.state.users} />
             </div>
         </div>
