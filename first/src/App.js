@@ -34,7 +34,7 @@ setAlert = (msg, type) => {
   this.setState({ alert: { msg, type}});
 
   setTimeout(() => this.setState({alert: null}),5000);
-  console.log(alert);
+  
 };
   render() {
     const {users, loading} = this.state;
@@ -42,7 +42,7 @@ setAlert = (msg, type) => {
         <div className='App'>
             <Navbar/>
             <div className='container'>
-            <Alert alert={this.state.alert}></Alert>
+            <Alert alert alert-undefined={this.state.alert}></Alert>
             <Search searchUsers={this.searchUsers} setAlert={this.setAlert} clearSearch={this.clearSearch} showClear={users.length > 0 ? true : false}/>
             <Users loading={loading} users={users} />
             </div>
