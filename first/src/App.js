@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
+import Alert from './components/layout/Alert';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
 import axios from 'axios';
@@ -10,20 +11,9 @@ class App extends Component {
 state ={
   users: [],
   loading: false,
-  showClear: false,
+  alert: [],
 }
 
-//testing if getting users from api works
-// async componentDidMount() {
-//   this.setState({loading: true});
-//   const res = await axios.get(`https://api.github.com/users?
-//   client_id=${process.env.REACT_APP_ALUMNI_SEARCH_CLIENT_ID}&
-//   client_secret=${process.env.REACT_APP_ALUMNI_SEARCH_SECRET}`);
-
-//   this.setState({users: res.data, loading: false});
-// }
-
-//search using this term
 searchUsers = async text => {
 this.setState({loading: true});
 
@@ -39,7 +29,12 @@ this.setState({loading: true});
   this.setState({users: res.data.items, loading: false});
 };
 //remove all the users by removing state
-clearSearch = () => {this.setState({users: [], loading: false})
+clearSearch = () => {this.setState({users: [], loading: false})};
+setAlert = (msg, type) => {
+  this.setState({ alert: { msg, type}});
+
+  setTimeout(() => this.setState({alert: null}),5000);
+  console.log(alert);
 };
   render() {
     const {users, loading} = this.state;
@@ -47,8 +42,9 @@ clearSearch = () => {this.setState({users: [], loading: false})
         <div className='App'>
             <Navbar/>
             <div className='container'>
-              <Search searchUsers={this.searchUsers} clearSearch={this.clearSearch} showClear={users.length > 0 ? true : false}/>
-             <Users loading={loading} users={users} />
+            <Alert alert={this.state.alert}></Alert>
+            <Search searchUsers={this.searchUsers} setAlert={this.setAlert} clearSearch={this.clearSearch} showClear={users.length > 0 ? true : false}/>
+            <Users loading={loading} users={users} />
             </div>
         </div>
     );
