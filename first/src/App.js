@@ -32,9 +32,7 @@ this.setState({loading: true});
 clearSearch = () => {this.setState({users: [], loading: false})};
 setAlert = (msg, type) => {
   this.setState({ alert: { msg, type}});
-
-  setTimeout(() => this.setState({alert: null}),5000);
-  
+  this.setState(!type ? { alert: null } : { alert: { msg, type } });
 };
   render() {
     const {users, loading} = this.state;
