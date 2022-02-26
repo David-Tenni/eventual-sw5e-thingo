@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
+import About from './components/pages/About';
 import Alert from './components/layout/Alert';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
@@ -53,6 +54,7 @@ setAlert = (msg, type) => {
                   </Fragment>
                 }
               />
+              <Route path='/about' element={<About/>} />
             </Routes>
           </div>
         </div>
