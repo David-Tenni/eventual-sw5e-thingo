@@ -42,7 +42,7 @@ setAlert = (msg, type) => {
         <div className='App'>
             <Navbar/>
             <div className='container'>
-            <Alert alert alert-undefined={this.state.alert}></Alert>
+            <Alert alert={this.state.alert}></Alert>
             <Search searchUsers={this.searchUsers} setAlert={this.setAlert} clearSearch={this.clearSearch} showClear={users.length > 0 ? true : false}/>
             <Users loading={loading} users={users} />
             </div>
