@@ -13,6 +13,7 @@ class App extends Component {
 state ={
   users: [],
   user: {},
+  repos: [],
   loading: false,
   alert: [],
 }
@@ -45,6 +46,20 @@ getUser = async (username) => {
   this.setState({user: res.data, loading: false});
 
 };
+//get repos profile
+getUserRepos = async (username) => {
+  this.setState({loading: true});
+
+  const res = await axios.get(
+    `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`,
+    {
+      headers: {
+        Authorization: `${process.env.REACT_APP_GITHUB_TOKEN}`,
+      },
+    })
+  this.setState({repos: res.data, loading: false});
+
+};
 //remove all the users by removing state
 clearSearch = () => {this.setState({users: [], loading: false})};
 setAlert = (msg, type) => {
@@ -52,7 +67,7 @@ setAlert = (msg, type) => {
   this.setState(!type ? { alert: null } : { alert: { msg, type } });
 };
   render() {
-    const {users, user, loading} = this.state;
+    const {users, getUserRepos, repos, user, loading} = this.state;
     return (
       <Router>
         <div className='App'>
@@ -74,7 +89,7 @@ setAlert = (msg, type) => {
               <Route
                 path={`/user/:login`}
                 element={
-                  <User getUser={this.getUser} user={user} loading={loading} />
+                  <User getUser={this.getUser} getUserRepos={getUserRepos} user={user} loading={loading} repos={repos}/>
                 }
               />
             </Routes>
