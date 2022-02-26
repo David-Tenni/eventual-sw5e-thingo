@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import About from './components/pages/About';
 import Alert from './components/layout/Alert';
 import Users from './components/users/Users';
+import User from './components/users/User';
 import Search from './components/users/Search';
 import axios from 'axios';
 import './App.css';
@@ -11,6 +12,7 @@ import './App.css';
 class App extends Component {
 state ={
   users: [],
+  user: {},
   loading: false,
   alert: [],
 }
@@ -29,6 +31,20 @@ this.setState({loading: true});
 
   this.setState({users: res.data.items, loading: false});
 };
+//get user profile
+getUser = async (username) => {
+  this.setState({loading: true});
+
+  const res = await axios.get(
+    `https://api.github.com/users/${username}`,
+    {
+      headers: {
+        Authorization: `${process.env.REACT_APP_GITHUB_TOKEN}`,
+      },
+    })
+  this.setState({user: res.data, loading: false});
+
+};
 //remove all the users by removing state
 clearSearch = () => {this.setState({users: [], loading: false})};
 setAlert = (msg, type) => {
@@ -36,7 +52,7 @@ setAlert = (msg, type) => {
   this.setState(!type ? { alert: null } : { alert: { msg, type } });
 };
   render() {
-    const {users, loading} = this.state;
+    const {users, user, loading} = this.state;
     return (
       <Router>
         <div className='App'>
@@ -55,6 +71,12 @@ setAlert = (msg, type) => {
                 }
               />
               <Route path='/about' element={<About/>} />
+              <Route
+                path={`/user/:login`}
+                element={
+                  <User getUser={this.getUser} user={user} loading={loading} />
+                }
+              />
             </Routes>
           </div>
         </div>
