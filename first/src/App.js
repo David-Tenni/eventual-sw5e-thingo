@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
 import Users from './components/users/Users';
@@ -38,25 +38,24 @@ setAlert = (msg, type) => {
     const {users, loading} = this.state;
     return (
       <Router>
-          
         <div className='App'>
-            <Navbar/>
-            <div className='container'>
-              <Alert Alert alert={this.state.alert}></Alert>
-
-              <Switch>
-                <Route  exact path='/' render={props => (
-
-                <Fragment>
-                  <Search searchUsers={this.searchUsers} setAlert={this.setAlert} clearSearch={this.clearSearch} showClear={users.length > 0 ? true : false}/>
-                  <Users loading={loading} users={users} />
-                </Fragment>
-                
-              )}/> 
-              </Switch>
-            </div>
+          <Navbar />
+          <div className='container'>
+            <Alert alert={this.state.alert} />
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <Fragment>
+                    <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} showClear={users.length > 0} setAlert={this.setAlert}
+                    />
+                    <Users loading={loading} users={users} />
+                  </Fragment>
+                }
+              />
+            </Routes>
+          </div>
         </div>
-
       </Router>
     );
   }
